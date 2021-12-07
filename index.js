@@ -2,8 +2,6 @@ const { Client, Intents, Collection } = require('discord.js');
 const { clientId, guildId} = require('./config.json');
 const fs = require('fs');
 
-import { env } from 'process';
-import token from env
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -48,4 +46,4 @@ client.on('interactionCreate', async interaction => {
     }
 })
 
-client.login(process.env.token)
+client.login(process.env.TOKEN)
