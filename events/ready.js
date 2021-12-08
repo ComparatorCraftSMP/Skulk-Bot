@@ -1,3 +1,4 @@
+//This module logs the client name and tag that logs in 
 module.exports = {
 	name: 'ready',
 	once: true,

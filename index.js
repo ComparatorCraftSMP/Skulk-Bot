@@ -1,7 +1,8 @@
+//dependancy for discordjs
 const { Client, Intents, Collection } = require('discord.js');
 const { clientId, guildId} = require('./config.json');
 const fs = require('fs');
-
+//dependancy for env
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -23,7 +24,7 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
-
+//This gets the command modules from the command folders
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 
 for (const file of commandFiles){
@@ -45,5 +46,5 @@ client.on('interactionCreate', async interaction => {
         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true })
     }
 })
-
+//This is what logs the bot in
 client.login(process.env.TOKEN)

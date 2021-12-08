@@ -1,3 +1,4 @@
+//This logs all interactions
 module.exports = {
 	name: 'interactionCreate',
 	execute(interaction) {
