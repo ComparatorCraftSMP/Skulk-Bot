@@ -55,6 +55,18 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 	// SQLite only
 	storage: 'database.sqlite',
 });
+//Here is the database model
+const shops = sequelize.define('shops', {
+    shopName: {
+        name: Sequelize.STRING,
+        unique: true,
+    },
+    xCoord: Sequelize.STRING,
+    yCoord: Sequelize.STRING,
+    zCoord: Sequelize.STRING,
+    items: Sequelize.STRING,
+    username: Sequelize.STRING,
 
+})
 //This is what logs the bot in
 client.login(process.env.TOKEN)
