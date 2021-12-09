@@ -4,7 +4,7 @@ const { clientId, guildId} = require('./config.json');
 const fs = require('fs');
 const dotenv = require('dotenv');
 dotenv.config();
-
+const Sequelize = require('sequelize')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.commands = new Collection();
