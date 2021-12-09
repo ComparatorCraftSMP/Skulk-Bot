@@ -1,7 +1,12 @@
+//dependancy for discordjs
 const { Client, Intents, Collection } = require('discord.js');
 const { clientId, guildId} = require('./config.json');
 const fs = require('fs');
+<<<<<<< HEAD
 
+=======
+//dependancy for env
+>>>>>>> 1e0b4d55baa5bd8d6a2cccc5493ba2fdc8cecbf2
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -23,7 +28,7 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
-
+//This gets the command modules from the command folders
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 
 for (const file of commandFiles){
@@ -46,4 +51,26 @@ client.on('interactionCreate', async interaction => {
     }
 })
 
-client.login(process.env.token)
+//Sequelize connection info
+const sequelize = new Sequelize('database', 'user', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	// SQLite only
+	storage: 'database.sqlite',
+});
+//Here is the database model
+const shops = sequelize.define('shops', {
+    shopName: {
+        name: Sequelize.STRING,
+        unique: true,
+    },
+    xCoord: Sequelize.STRING,
+    yCoord: Sequelize.STRING,
+    zCoord: Sequelize.STRING,
+    items: Sequelize.STRING,
+    username: Sequelize.STRING,
+
+})
+//This is what logs the bot in
+client.login(process.env.TOKEN)
