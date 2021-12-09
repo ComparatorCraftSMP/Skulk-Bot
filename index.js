@@ -2,11 +2,6 @@
 const { Client, Intents, Collection } = require('discord.js');
 const { clientId, guildId} = require('./config.json');
 const fs = require('fs');
-<<<<<<< HEAD
-
-=======
-//dependancy for env
->>>>>>> 1e0b4d55baa5bd8d6a2cccc5493ba2fdc8cecbf2
 const dotenv = require('dotenv');
 dotenv.config();
 
