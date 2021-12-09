@@ -67,7 +67,7 @@ const shops = sequelize.define('shops', {
     username: Sequelize.STRING,
 
 });
-
+//This syncs the shops in the database when the bot is  started
 client.once('ready', ()=>{
     shops.sync();
 })
