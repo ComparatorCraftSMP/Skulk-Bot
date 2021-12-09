@@ -63,7 +63,7 @@ const shops = sequelize.define('shops', {
     xCoord: Sequelize.INTEGER,
     yCoord: Sequelize.INTEGER,
     zCoord: Sequelize.INTEGER,
-    items: Sequelize.STRING,
+    items: Sequelize.TEXT,
     username: Sequelize.STRING,
 
 })
