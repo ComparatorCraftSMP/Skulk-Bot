@@ -60,9 +60,9 @@ const shops = sequelize.define('shops', {
         name: Sequelize.STRING,
         unique: true,
     },
-    xCoord: Sequelize.STRING,
-    yCoord: Sequelize.STRING,
-    zCoord: Sequelize.STRING,
+    xCoord: Sequelize.INTEGER,
+    yCoord: Sequelize.INTEGER,
+    zCoord: Sequelize.INTEGER,
     items: Sequelize.STRING,
     username: Sequelize.STRING,
 
