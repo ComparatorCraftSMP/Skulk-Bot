@@ -4,7 +4,7 @@ const { clientId, guildId} = require('./config.json');
 const fs = require('fs');
 const dotenv = require('dotenv');
 dotenv.config();
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.commands = new Collection();
@@ -57,7 +57,7 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 //Here is the database model
 const shops = sequelize.define('shops', {
     shopName: {
-        name: Sequelize.STRING,
+        type: Sequelize.STRING,
         unique: true,
     },
     xCoord: Sequelize.INTEGER,
