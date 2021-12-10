@@ -64,7 +64,7 @@ const shops = sequelize.define('shops', {
     yCoord: Sequelize.INTEGER,
     zCoord: Sequelize.INTEGER,
     items: Sequelize.TEXT,
-    username: Sequelize.STRING,
+    shopOwners: Sequelize.STRING,
 
 });
 //This syncs the shops in the database when the bot is  started
