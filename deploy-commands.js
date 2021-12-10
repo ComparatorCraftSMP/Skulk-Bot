@@ -12,7 +12,7 @@ dotenv.config();
 const commands = []
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 
-const rest = new REST({ version: '9'}).setToken(token);
+const rest = new REST({ version: '9'}).setToken(process.env.TOKEN);
 
 for (const file of commandFiles){
 	const command = require(`./commands/${file}`)
