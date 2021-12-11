@@ -14,12 +14,14 @@ module.exports = {
         .addUserOption(option => option.setName('shop_owners').setDescription('Put the shops owners')),
 
     async execute(interaction){
-        /*
+        
         const embed = new MessageEmbed()
+        
             .setColor('#9542f5')
-            .setTitle(CommandInteractionOptionResolver.getString('Shop Name'))
-            .setDescription(``) */
-        await interaction.reply('You registered a shop, wow your so cool');
+            .setTitle(`Shop: ${interaction.options.getString('shop_name')}`)
+            .setDescription(`Shop Name: ${interaction.options.getString('shop_name')} \n Coordinates: X:${interaction.options.getInteger('xcoordinate')} Y:${interaction.options.getInteger('ycoordinate')} Z:${interaction.options.getInteger('zcoordinate')} \n Items: ${interaction.options.getString('items')} \n Shop Owners: ${interaction.options.getUser('shop_owners')}`) 
+            
+        await interaction.reply({embeds: [embed]})
     },
 
 }
