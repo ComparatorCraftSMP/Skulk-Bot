@@ -1,6 +1,7 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
+const {SlashCommandBuilder, SlashCommandStringOption} = require('@discordjs/builders');
 const {MessageEmbed, CommandInteractionOptionResolver} = require('discord.js');
-
+const Sequelize = require('sequelize');
+const shops = require('../index.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -14,14 +15,36 @@ module.exports = {
         .addUserOption(option => option.setName('shop_owners').setDescription('Put the shops owners')),
 
     async execute(interaction){
-        
+
+        try {
+            const shop = await shops.create({
+                name: interaction.options.getString('shop_name'),
+                xCoord: interaction.options.getInteger('xcoordinate'),
+                yCoord: interaction.options.getInteger('ycoordinate'),
+                zCoord: interaction.options.getInteger('zcoordinate'),
+                items: interaction.options.getString('items'),
+                shopOwners: interaction.options.getUser('shop_owners'),
+            })
+
+            await interaction.reply({embeds: [embed]})
+        }
+        catch(error) {
+            if(error.name === 'SequilizeUniqueConstraintError'){
+                return interaction.reply('````diff\n-That shop already exists\n```')
+            }
+
+            return interaction.reply('```diff\nSomething went wrong adding this shop\n```')
+        }
+
         const embed = new MessageEmbed()
         
-            .setColor('#9542f5')
-            .setTitle(`Shop: ${interaction.options.getString('shop_name')}`)
+            .setColor('#4feb34')
+            .setTitle(`${interaction.options.getString('shop_name')} has been added`)
             .setDescription(`Shop Name: ${interaction.options.getString('shop_name')} \n Coordinates: X:${interaction.options.getInteger('xcoordinate')} Y:${interaction.options.getInteger('ycoordinate')} Z:${interaction.options.getInteger('zcoordinate')} \n Items: ${interaction.options.getString('items')} \n Shop Owners: ${interaction.options.getUser('shop_owners')}`) 
             
         await interaction.reply({embeds: [embed]})
+
+        
     },
 
 }
