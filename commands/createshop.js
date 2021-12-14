@@ -1,7 +1,7 @@
 const {SlashCommandBuilder, SlashCommandStringOption} = require('@discordjs/builders');
 const {MessageEmbed, CommandInteractionOptionResolver} = require('discord.js');
-const Sequelize = require('sequelize');
-const shops = require('../index.js')
+const { Sequelize, shops} = require('sequelize');
+
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,15 +15,21 @@ module.exports = {
         .addUserOption(option => option.setName('shop_owners').setDescription('Put the shops owners')),
 
     async execute(interaction){
-
+        
+        const embed = new MessageEmbed()
+                
+                    .setColor('#4feb34')
+                    .setTitle(`${interaction.options.getString('shop_name')} has been added`)
+                    .setDescription(`Shop Name: ${interaction.options.getString('shop_name')} \n Coordinates: X:${interaction.options.getInteger('xcoordinate')} Y:${interaction.options.getInteger('ycoordinate')} Z:${interaction.options.getInteger('zcoordinate')} \n Items: ${interaction.options.getString('items')} \n Shop Owners: ${interaction.options.getUser('shop_owners')}`) 
+                    
         try {
             const shop = await shops.create({
-                name: interaction.options.getString('shop_name'),
+                shopName: interaction.options.getString('shop_name'),
                 xCoord: interaction.options.getInteger('xcoordinate'),
                 yCoord: interaction.options.getInteger('ycoordinate'),
                 zCoord: interaction.options.getInteger('zcoordinate'),
                 items: interaction.options.getString('items'),
-                shopOwners: interaction.options.getUser('shop_owners'),
+                shopOwners: interaction.User.username,
             })
 
             await interaction.reply({embeds: [embed]})
@@ -33,16 +39,11 @@ module.exports = {
                 return interaction.reply('````diff\n-That shop already exists\n```')
             }
 
-            return interaction.reply('```diff\nSomething went wrong adding this shop\n```')
+            return interaction.reply('```diff\n-Something went wrong adding this shop\n```')
         }
 
-        const embed = new MessageEmbed()
         
-            .setColor('#4feb34')
-            .setTitle(`${interaction.options.getString('shop_name')} has been added`)
-            .setDescription(`Shop Name: ${interaction.options.getString('shop_name')} \n Coordinates: X:${interaction.options.getInteger('xcoordinate')} Y:${interaction.options.getInteger('ycoordinate')} Z:${interaction.options.getInteger('zcoordinate')} \n Items: ${interaction.options.getString('items')} \n Shop Owners: ${interaction.options.getUser('shop_owners')}`) 
-            
-        await interaction.reply({embeds: [embed]})
+       
 
         
     },
