@@ -4,8 +4,9 @@ const { clientId, guildId} = require('./config.json');
 const fs = require('fs');
 const dotenv = require('dotenv');
 dotenv.config();
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes, Model} = require('sequelize');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const shops = require('./dbmodel.js');
 
 client.commands = new Collection();
 
@@ -54,19 +55,7 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 	// SQLite only
 	storage: 'database.sqlite',
 });
-//Here is the database model
-const shops = sequelize.define('shops', {
-    shopName: {
-        type: Sequelize.STRING,
-        unique: true,
-    },
-    xCoord: Sequelize.INTEGER,
-    yCoord: Sequelize.INTEGER,
-    zCoord: Sequelize.INTEGER,
-    items: Sequelize.TEXT,
-    shopOwners: Sequelize.STRING,
 
-});
 //This syncs the shops in the database when the bot is  started
 client.once('ready', ()=>{
     shops.sync();

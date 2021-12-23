@@ -1,6 +1,7 @@
 const {SlashCommandBuilder, SlashCommandStringOption} = require('@discordjs/builders');
 const {MessageEmbed, CommandInteractionOptionResolver} = require('discord.js');
-const { Sequelize, shops} = require('sequelize');
+const { Sequelize, DataTypes, Model} = require('sequelize');
+const shops = require('../dbmodel.js');
 
 
 module.exports = {
