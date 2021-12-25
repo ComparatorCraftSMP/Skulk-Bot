@@ -1,7 +1,7 @@
 const {SlashCommandBuilder, SlashCommandStringOption} = require('@discordjs/builders');
 const {MessageEmbed, CommandInteractionOptionResolver} = require('discord.js');
 const { Sequelize, DataTypes, Model} = require('sequelize');
-const shops = require('../dbmodel.js');
+const Shops = require('../dbmodel.js');
 
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
         .addUserOption(option => option.setName('shop_owners').setDescription('Put the shops owners')),
 
     async execute(interaction){
-        
+  
         const embed = new MessageEmbed()
                 
                     .setColor('#4feb34')
@@ -24,7 +24,7 @@ module.exports = {
                     .setDescription(`Shop Name: ${interaction.options.getString('shop_name')} \n Coordinates: X:${interaction.options.getInteger('xcoordinate')} Y:${interaction.options.getInteger('ycoordinate')} Z:${interaction.options.getInteger('zcoordinate')} \n Items: ${interaction.options.getString('items')} \n Shop Owners: ${interaction.options.getUser('shop_owners')}`) 
                     
         try {
-            const shop = await shops.create({
+            const shop = await Shops.shops.create({
                 shopName: interaction.options.getString('shop_name'),
                 xCoord: interaction.options.getInteger('xcoordinate'),
                 yCoord: interaction.options.getInteger('ycoordinate'),
@@ -40,13 +40,9 @@ module.exports = {
                 return interaction.reply('````diff\n-That shop already exists\n```')
             }
 
-            return interaction.reply('```diff\n-Something went wrong adding this shop\n```')
-        }
-
+            return  interaction.reply('```diff\n-Something went wrong adding this shop \n``` ' + error)
         
-       
-
-        
+        } 
     },
 
 }

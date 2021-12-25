@@ -56,9 +56,5 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 	storage: 'database.sqlite',
 });
 
-//This syncs the shops in the database when the bot is  started
-client.once('ready', ()=>{
-    shops.sync();
-})
 //This is what logs the bot in
 client.login(process.env.TOKEN)
