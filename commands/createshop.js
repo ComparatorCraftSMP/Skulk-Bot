@@ -1,7 +1,8 @@
 const {SlashCommandBuilder, SlashCommandStringOption} = require('@discordjs/builders');
 const {MessageEmbed, CommandInteractionOptionResolver} = require('discord.js');
-const { Sequelize, DataTypes, Model} = require('sequelize');
-const Shops = require('../dbmodel.js');
+const { Sequelize} = require('sequelize');
+const Shops = require('../utils/dbmodel.js');
+const shops = Shops.shops;
 
 
 module.exports = {
@@ -14,7 +15,7 @@ module.exports = {
         .addIntegerOption(option => option.setName('zcoordinate').setDescription('Put the shops z coordinate'))
         .addStringOption(option => option.setName('items').setDescription('Add all your items, separate them by comma'))
         .addUserOption(option => option.setName('shop_owners').setDescription('Put the shops owners')),
-
+        
     async execute(interaction){
   
         const embed = new MessageEmbed()
@@ -22,18 +23,20 @@ module.exports = {
                     .setColor('#4feb34')
                     .setTitle(`${interaction.options.getString('shop_name')} has been added`)
                     .setDescription(`Shop Name: ${interaction.options.getString('shop_name')} \n Coordinates: X:${interaction.options.getInteger('xcoordinate')} Y:${interaction.options.getInteger('ycoordinate')} Z:${interaction.options.getInteger('zcoordinate')} \n Items: ${interaction.options.getString('items')} \n Shop Owners: ${interaction.options.getUser('shop_owners')}`) 
-                    
+        
+            
         try {
-            const shop = await Shops.shops.create({
+            
+           await shops.create({
                 shopName: interaction.options.getString('shop_name'),
                 xCoord: interaction.options.getInteger('xcoordinate'),
                 yCoord: interaction.options.getInteger('ycoordinate'),
                 zCoord: interaction.options.getInteger('zcoordinate'),
                 items: interaction.options.getString('items'),
-                shopOwners: interaction.User.username,
-            })
+                shopOwners: interaction.options.getUser('shop_owners')
+            }).then(interaction.reply({embeds: [embed]}))
 
-            await interaction.reply({embeds: [embed]})
+            
         }
         catch(error) {
             if(error.name === 'SequilizeUniqueConstraintError'){

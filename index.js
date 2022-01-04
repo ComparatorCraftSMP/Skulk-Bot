@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const { Sequelize, DataTypes, Model} = require('sequelize');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-const shops = require('./dbmodel.js');
+const Shops = require('./utils/dbmodel.js');
 
 client.commands = new Collection();
 
@@ -55,6 +55,7 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 	// SQLite only
 	storage: 'database.sqlite',
 });
+
 
 //This is what logs the bot in
 client.login(process.env.TOKEN)
