@@ -5,8 +5,9 @@ const fs = require('fs');
 const dotenv = require('dotenv');
 dotenv.config();
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
 //Here is the database model
-module.exports = (sequelize, DataTypes) => sequelize.define('shops', {
+const shops = sequelize.define('shops', {
     shopName: {
         type: DataTypes.STRING,
         unique: true,
@@ -29,6 +30,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('shops', {
 
 });
 
+module.exports = { shops }
 //This syncs the shops in the database when the bot is  started
 client.once('ready', ()=>{
     shops.sync({ force: true });
