@@ -3,7 +3,7 @@ const fs = require('fs')
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { guildId, clientId} = require('../config.json');
+const { guildId, clientId} = require('./config.json');
 
 //dotenv dependancy
 const dotenv = require('dotenv');
