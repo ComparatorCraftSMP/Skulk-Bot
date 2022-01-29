@@ -1,9 +1,9 @@
-const {SlashCommandBuilder, SlashCommandStringOption} = require('@discordjs/builders');
-const {MessageEmbed, CommandInteractionOptionResolver, Message} = require('discord.js');
-
-module.export = {
+module.exports = {
     name: 'messageCreate',
-    execute(message) {
-        if (message.)
+    execute(msg) {
+        if(msg.attachments){
+            msg.delete()
+            console.log(`Deleted a message at ${msg.createdAt}`)
+        }
     }
 }
