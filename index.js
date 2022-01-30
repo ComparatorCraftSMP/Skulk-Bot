@@ -1,6 +1,7 @@
 //dependancy for discordjs
 const { Client, Intents, Collection } = require('discord.js');
 const { clientId, guildId} = require('./config.json');
+const { checkVirus } = require('./utils/checkvirus')
 const fs = require('fs');
 const dotenv = require('dotenv');
 dotenv.config();
